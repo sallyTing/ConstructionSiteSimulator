@@ -1,4 +1,4 @@
-package org.example.constructionsitesimulator;
+package org.example.constructionsitesimulator.io;
 
 import java.io.File;
 import java.io.FileNotFoundException;

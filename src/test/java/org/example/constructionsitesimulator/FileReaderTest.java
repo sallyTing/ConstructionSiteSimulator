@@ -1,5 +1,6 @@
 package org.example.constructionsitesimulator;
 
+import org.example.constructionsitesimulator.io.FileReader;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;

@@ -20,12 +20,21 @@ public class ConstructionSiteTest {
     ConstructionSite site = new ConstructionSite(constructionMap, bulldozer);
 
     @Test
+    public void shouldGenerateMapString() {
+        List<List<SquareBlock>> constructionMap = Arrays.asList(
+                Arrays.asList(SquareBlock.PLAIN_LAND, SquareBlock.TREE, SquareBlock.ROCKY_GROUND),
+                Arrays.asList(SquareBlock.CLEARED_LAND, SquareBlock.PROTECTED_TREE, SquareBlock.PLAIN_LAND));
+        ConstructionSite site = new ConstructionSite(constructionMap, bulldozer);
+        assertThat(site.generateMap()).isEqualTo(Arrays.asList("o t r", "c T o"));
+    }
+
+    @Test
     public void shouldGetTargetSquareBasedOnXnY() {
-        assertThat(site.getTargetGrid(0, 0)).isEqualTo(SquareBlock.CLEARED_LAND);
-        assertThat(site.getTargetGrid(2, 0)).isEqualTo(SquareBlock.TREE);
-        assertThat(site.getTargetGrid(7, 1)).isEqualTo(SquareBlock.PROTECTED_TREE);
-        assertThat(site.getTargetGrid(0, 3)).isEqualTo(SquareBlock.ROCKY_GROUND);
-        assertThat(site.getTargetGrid(5, 2)).isEqualTo(SquareBlock.PLAIN_LAND);
+        assertThat(site.getTargetSquare(0, 0)).isEqualTo(SquareBlock.CLEARED_LAND);
+        assertThat(site.getTargetSquare(2, 0)).isEqualTo(SquareBlock.TREE);
+        assertThat(site.getTargetSquare(7, 1)).isEqualTo(SquareBlock.PROTECTED_TREE);
+        assertThat(site.getTargetSquare(0, 3)).isEqualTo(SquareBlock.ROCKY_GROUND);
+        assertThat(site.getTargetSquare(5, 2)).isEqualTo(SquareBlock.PLAIN_LAND);
     }
 
     @Test
@@ -47,8 +56,8 @@ public class ConstructionSiteTest {
     public void shouldNotChangeMapAfterChangeBulldozerDirection() {
         ConstructionSite newSite1 = site.moveLeft();
         ConstructionSite newSite2 = site.moveRight();
-        assertThat(newSite1.getMap()).isEqualTo(site.getMap());
-        assertThat(newSite2.getMap()).isEqualTo(site.getMap());
+        assertThat(newSite1.getConstructionMap()).isEqualTo(site.getConstructionMap());
+        assertThat(newSite2.getConstructionMap()).isEqualTo(site.getConstructionMap());
     }
 
     @Test
@@ -57,9 +66,9 @@ public class ConstructionSiteTest {
         Bulldozer bulldozer = new Bulldozer(-1, 0, Direction.East, 0, 0, false);
         ConstructionSite site = new ConstructionSite(constructionMap, bulldozer);
         ConstructionSite newSite = site.moveForward(3);
-        assertThat(newSite.getTargetGrid(0, 0)).isEqualTo(SquareBlock.CLEARED_LAND);
-        assertThat(newSite.getTargetGrid(1, 0)).isEqualTo(SquareBlock.CLEARED_LAND);
-        assertThat(newSite.getTargetGrid(2, 0)).isEqualTo(SquareBlock.CLEARED_LAND);
+        assertThat(newSite.getTargetSquare(0, 0)).isEqualTo(SquareBlock.CLEARED_LAND);
+        assertThat(newSite.getTargetSquare(1, 0)).isEqualTo(SquareBlock.CLEARED_LAND);
+        assertThat(newSite.getTargetSquare(2, 0)).isEqualTo(SquareBlock.CLEARED_LAND);
         assertThat(newSite.getBulldozer().getFuelUnit()).isEqualTo(5);
         assertThat(newSite.getBulldozer().getDamageNum()).isEqualTo(1);
     }
@@ -83,7 +92,7 @@ public class ConstructionSiteTest {
             site.moveForward(3);
         } catch (ProtectedTreePenaltyException e) {
             ConstructionSite newSite = e.getSite();
-            assertThat(newSite.getMap()).isEqualTo(Arrays.asList(Arrays.asList(SquareBlock.CLEARED_LAND, SquareBlock.PROTECTED_TREE, SquareBlock.PLAIN_LAND)));
+            assertThat(newSite.getConstructionMap()).isEqualTo(Arrays.asList(Arrays.asList(SquareBlock.CLEARED_LAND, SquareBlock.PROTECTED_TREE, SquareBlock.PLAIN_LAND)));
             assertThat(newSite.getBulldozer().getPenaltyFlag()).isTrue();
             assertThat(newSite.getBulldozer().getFuelUnit()).isEqualTo(1);
             assertThat(newSite.getBulldozer().getX()).isEqualTo(0);
@@ -99,7 +108,7 @@ public class ConstructionSiteTest {
             site.moveForward(5);
         } catch (OutOfMapException e) {
             ConstructionSite newSite = e.getSite();
-            assertThat(newSite.getMap()).isEqualTo(Arrays.asList(Arrays.asList(SquareBlock.CLEARED_LAND, SquareBlock.CLEARED_LAND, SquareBlock.CLEARED_LAND)));
+            assertThat(newSite.getConstructionMap()).isEqualTo(Arrays.asList(Arrays.asList(SquareBlock.CLEARED_LAND, SquareBlock.CLEARED_LAND, SquareBlock.CLEARED_LAND)));
             assertThat(newSite.getBulldozer().getPenaltyFlag()).isEqualTo(false);
             assertThat(newSite.getBulldozer().getFuelUnit()).isEqualTo(3);
             assertThat(newSite.getBulldozer().getX()).isEqualTo(2);

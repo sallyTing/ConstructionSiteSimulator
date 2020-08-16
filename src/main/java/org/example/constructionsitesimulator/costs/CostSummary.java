@@ -2,6 +2,8 @@ package org.example.constructionsitesimulator.costs;
 
 import org.example.constructionsitesimulator.models.Simulator;
 
+import java.util.List;
+
 public class CostSummary {
     private final CostItem communicationOverhead;
     private final CostItem fuelUsage;
@@ -41,18 +43,6 @@ public class CostSummary {
 
     public int getTotalCost() {
         return totalCost;
-    }
-
-    public void printCostSummary() {
-        System.out.println("The costs for this land clearing operation were:");
-        System.out.println("Item                               Quantity      Cost");
-        System.out.println(String.format("communication overhead                  %d       %d", communicationOverhead.getQuantity(), communicationOverhead.getCost()));
-        System.out.println(String.format("fuel usage                              %d       %d", fuelUsage.getQuantity(), fuelUsage.getCost()));
-        System.out.println(String.format("uncleared squares                       %d       %d", unclearedSquaresCost.getQuantity(), unclearedSquaresCost.getCost()));
-        System.out.println(String.format("destruction of protected tree           %d       %d", protectedTreePenalty.getQuantity(), protectedTreePenalty.getCost()));
-        System.out.println(String.format("paint damage to bulldozer               %d       %d", damageRepair.getQuantity(), damageRepair.getCost()));
-        System.out.println("----");
-        System.out.println(String.format("Total                                            %d", totalCost));
     }
 
     private int calculateTotalCost() {

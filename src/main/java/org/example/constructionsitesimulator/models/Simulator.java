@@ -46,18 +46,5 @@ public class Simulator {
         }
     }
 
-    public void printConstructionSite() {
-        System.out.println("Welcome to the Aconex site clearing simulator. This is a map of the site:");
-        constructionSite.print();
-    }
-
-    public void printCommands() {
-        System.out.println("The simulation has ended at your request. These are the commands you issued:");
-        for(UserCommand command : commands) {
-            System.out.print(command + ", ");
-        }
-        System.out.println("");
-    }
-
 }
 

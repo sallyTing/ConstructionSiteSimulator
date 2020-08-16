@@ -4,58 +4,55 @@ import org.example.constructionsitesimulator.exceptions.OutOfMapException;
 import org.example.constructionsitesimulator.exceptions.ProtectedTreePenaltyException;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ConstructionSite {
-    private final List<List<SquareBlock>> map;
+    private final List<List<SquareBlock>> constructionMap;
     private final int width;
     private final int height;
     private final Bulldozer bulldozer;
 
 
-    public ConstructionSite(final List<List<SquareBlock>> map, final Bulldozer b) {
-        this.map = map;
-        this.width = map.get(0).size();
-        this.height = map.size();
+    public ConstructionSite(final List<List<SquareBlock>> constructionMap, final Bulldozer b) {
+        this.constructionMap = constructionMap;
+        this.width = constructionMap.get(0).size();
+        this.height = constructionMap.size();
         this.bulldozer = b;
     }
 
     public Bulldozer getBulldozer() {
-        return this.bulldozer;
+        return bulldozer;
     }
 
-    public List<List<SquareBlock>> getMap() {
-        return this.map;
+    public List<List<SquareBlock>> getConstructionMap() {
+        return constructionMap;
     }
 
+    public List<String> generateMap() {
+        return constructionMap.stream()
+                .map(row -> row.stream().map(SquareBlock::toString).collect(Collectors.joining(" ")))
+                .collect(Collectors.toList());
+    }
 
-    public SquareBlock getTargetGrid(int x, int y) {
-        return this.map.get(y).get(x);
+    public SquareBlock getTargetSquare(int x, int y) {
+        return constructionMap.get(y).get(x);
     }
 
     public boolean outOfMap(int x, int y) {
-        return x < 0 || x >= this.width || y < 0 || y >= this.height;
-    }
-
-    public void print() {
-        for (List<SquareBlock> row : this.map) {
-            for (SquareBlock cell : row) {
-                System.out.print(cell.toString() + " ");
-            }
-            System.out.println("");
-        }
+        return x < 0 || x >= width || y < 0 || y >= height;
     }
 
     public ConstructionSite moveLeft() {
-        return new ConstructionSite(map, bulldozer.turnLeft());
+        return new ConstructionSite(constructionMap, bulldozer.turnLeft());
     }
 
     public ConstructionSite moveRight() {
-        return new ConstructionSite(map, bulldozer.turnRight());
+        return new ConstructionSite(constructionMap, bulldozer.turnRight());
     }
 
     public ConstructionSite moveForward(int num) throws OutOfMapException, ProtectedTreePenaltyException {
-        List<List<SquareBlock>> newGrids = this.map;
-        Bulldozer newBulldozer = this.bulldozer;
+        List<List<SquareBlock>> newGrids = constructionMap;
+        Bulldozer newBulldozer = bulldozer;
         int moreFuelUnit;
         int moreDamage;
         for (int i = 0; i < num; i++) {
@@ -63,7 +60,7 @@ public class ConstructionSite {
             if (outOfMap(nextB.getX(), nextB.getY())) {
                 throw new OutOfMapException(new ConstructionSite(newGrids, newBulldozer));
             }
-            SquareBlock nextGrid = getTargetGrid(nextB.getX(), nextB.getY());
+            SquareBlock nextGrid = getTargetSquare(nextB.getX(), nextB.getY());
             if (nextGrid == SquareBlock.PROTECTED_TREE) {
                 throw new ProtectedTreePenaltyException(new ConstructionSite(newGrids, newBulldozer.flagPenalty()));
             }
@@ -79,7 +76,7 @@ public class ConstructionSite {
     }
 
     public int getUnclearedSquares() {
-        return (int) this.map.stream()
+        return (int) constructionMap.stream()
                 .flatMap(row -> row.stream().filter(grid -> grid != SquareBlock.CLEARED_LAND && grid != SquareBlock.PROTECTED_TREE)).count();
     }
 }
