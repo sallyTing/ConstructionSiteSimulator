@@ -1,5 +1,16 @@
 package org.example.constructionsitesimulator;
 
+import org.example.constructionsitesimulator.commands.AdvanceCommand;
+import org.example.constructionsitesimulator.commands.LeftCommand;
+import org.example.constructionsitesimulator.commands.QuitCommand;
+import org.example.constructionsitesimulator.commands.UserCommand;
+import org.example.constructionsitesimulator.exceptions.OutOfMapException;
+import org.example.constructionsitesimulator.exceptions.ProtectedTreePenaltyException;
+import org.example.constructionsitesimulator.exceptions.TerminateException;
+import org.example.constructionsitesimulator.models.Bulldozer;
+import org.example.constructionsitesimulator.models.ConstructionSite;
+import org.example.constructionsitesimulator.models.Simulator;
+import org.example.constructionsitesimulator.models.SquareBlock;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -15,12 +26,10 @@ public class SimulatorTest {
     Simulator simulator = new Simulator(site, commands);
 
     @Test
-    public void shouldAccumulateCommandsAndCalculateCommandsCostUnitCorrect() throws TerminateException {
+    public void shouldAccumulateCommands() throws TerminateException {
         Simulator newSimulator = simulator.process(new AdvanceCommand(1)).process(new LeftCommand()).process(new QuitCommand());
 
         assertThat(newSimulator.getCommands().size()).isEqualTo(3);
-        assertThat(simulator.getCommandsCostUnit()).isEqualTo(2);
-
     }
 
     @Test

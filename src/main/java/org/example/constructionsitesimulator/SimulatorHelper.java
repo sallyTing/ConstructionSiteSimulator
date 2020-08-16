@@ -1,5 +1,9 @@
 package org.example.constructionsitesimulator;
 
+import org.example.constructionsitesimulator.commands.*;
+import org.example.constructionsitesimulator.exceptions.InvalidCommandException;
+import org.example.constructionsitesimulator.models.SquareBlock;
+
 import java.util.List;
 import java.util.stream.Collectors;
 

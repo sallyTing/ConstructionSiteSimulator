@@ -1,5 +1,10 @@
 package org.example.constructionsitesimulator;
 
+import org.example.constructionsitesimulator.commands.AdvanceCommand;
+import org.example.constructionsitesimulator.commands.LeftCommand;
+import org.example.constructionsitesimulator.commands.RightCommand;
+import org.example.constructionsitesimulator.exceptions.InvalidCommandException;
+import org.example.constructionsitesimulator.models.SquareBlock;
 import org.junit.Test;
 
 import java.util.Arrays;

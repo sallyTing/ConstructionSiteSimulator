@@ -1,4 +1,4 @@
-package org.example.constructionsitesimulator;
+package org.example.constructionsitesimulator.models;
 
 public enum SquareBlock {
     PLAIN_LAND("o"),

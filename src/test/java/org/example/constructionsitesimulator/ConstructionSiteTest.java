@@ -1,5 +1,11 @@
 package org.example.constructionsitesimulator;
 
+import org.example.constructionsitesimulator.exceptions.OutOfMapException;
+import org.example.constructionsitesimulator.exceptions.ProtectedTreePenaltyException;
+import org.example.constructionsitesimulator.models.Bulldozer;
+import org.example.constructionsitesimulator.models.ConstructionSite;
+import org.example.constructionsitesimulator.models.Direction;
+import org.example.constructionsitesimulator.models.SquareBlock;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -46,7 +52,7 @@ public class ConstructionSiteTest {
     }
 
     @Test
-    public void shouldLabelSquareAsClearedAfterBulldozerPassOrStandAndAccumulateFuelAndDamage() throws OutOfMapException, ProtectedTreePenaltyException{
+    public void shouldLabelSquareAsClearedAfterBulldozerPassOrStandAndAccumulateFuelAndDamage() throws OutOfMapException, ProtectedTreePenaltyException {
         List<List<SquareBlock>> constructionMap = Arrays.asList(Arrays.asList(SquareBlock.PLAIN_LAND, SquareBlock.TREE, SquareBlock.ROCKY_GROUND));
         Bulldozer bulldozer = new Bulldozer(-1, 0, Direction.East, 0, 0, false);
         ConstructionSite site = new ConstructionSite(constructionMap, bulldozer);

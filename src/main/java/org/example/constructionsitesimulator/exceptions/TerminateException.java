@@ -1,4 +1,6 @@
-package org.example.constructionsitesimulator;
+package org.example.constructionsitesimulator.exceptions;
+
+import org.example.constructionsitesimulator.models.Simulator;
 
 public class TerminateException extends Exception {
     private final Simulator simulator;

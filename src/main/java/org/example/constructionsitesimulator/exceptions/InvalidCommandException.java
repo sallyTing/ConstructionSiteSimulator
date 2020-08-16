@@ -1,4 +1,4 @@
-package org.example.constructionsitesimulator;
+package org.example.constructionsitesimulator.exceptions;
 
 public class InvalidCommandException extends Exception {
 }

@@ -1,4 +1,7 @@
-package org.example.constructionsitesimulator;
+package org.example.constructionsitesimulator.models;
+
+import org.example.constructionsitesimulator.exceptions.OutOfMapException;
+import org.example.constructionsitesimulator.exceptions.ProtectedTreePenaltyException;
 
 import java.util.List;
 
@@ -25,15 +28,15 @@ public class ConstructionSite {
     }
 
 
-    protected SquareBlock getTargetGrid(int x, int y) {
+    public SquareBlock getTargetGrid(int x, int y) {
         return this.map.get(y).get(x);
     }
 
-    protected boolean outOfMap(int x, int y) {
+    public boolean outOfMap(int x, int y) {
         return x < 0 || x >= this.width || y < 0 || y >= this.height;
     }
 
-    protected void print() {
+    public void print() {
         for (List<SquareBlock> row : this.map) {
             for (SquareBlock cell : row) {
                 System.out.print(cell.toString() + " ");
@@ -42,15 +45,15 @@ public class ConstructionSite {
         }
     }
 
-    protected ConstructionSite moveLeft() {
+    public ConstructionSite moveLeft() {
         return new ConstructionSite(map, bulldozer.turnLeft());
     }
 
-    protected ConstructionSite moveRight() {
+    public ConstructionSite moveRight() {
         return new ConstructionSite(map, bulldozer.turnRight());
     }
 
-    protected ConstructionSite moveForward(int num) throws OutOfMapException, ProtectedTreePenaltyException {
+    public ConstructionSite moveForward(int num) throws OutOfMapException, ProtectedTreePenaltyException {
         List<List<SquareBlock>> newGrids = this.map;
         Bulldozer newBulldozer = this.bulldozer;
         int moreFuelUnit;

@@ -1,4 +1,4 @@
-package org.example.constructionsitesimulator;
+package org.example.constructionsitesimulator.commands;
 
 public class QuitCommand implements UserCommand {
     @Override

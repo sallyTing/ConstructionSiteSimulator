@@ -1,4 +1,4 @@
-package org.example.constructionsitesimulator;
+package org.example.constructionsitesimulator.commands;
 
 public class AdvanceCommand implements UserCommand {
     private final int num;
@@ -13,6 +13,6 @@ public class AdvanceCommand implements UserCommand {
 
     @Override
     public String toString() {
-        return "advance " + this.num;
+        return String.format("advance %d", num);
     }
 }

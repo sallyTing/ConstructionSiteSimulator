@@ -1,4 +1,4 @@
-package org.example.constructionsitesimulator;
+package org.example.constructionsitesimulator.commands;
 
 public class LeftCommand implements UserCommand {
     @Override

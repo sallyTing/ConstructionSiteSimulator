@@ -1,4 +1,4 @@
-package org.example.constructionsitesimulator;
+package org.example.constructionsitesimulator.models;
 
 public class Bulldozer {
     private final int x;
@@ -17,7 +17,7 @@ public class Bulldozer {
         this.fuelUnit = 0;
         this.treePenalty = false;
     }
-    protected Bulldozer(int x, int y, Direction facing, final int fuelUnit, final int damageNum, final boolean treePenalty) {
+    public Bulldozer(int x, int y, Direction facing, final int fuelUnit, final int damageNum, final boolean treePenalty) {
         this.x = x;
         this.y = y;
         this.facing = facing;
@@ -46,15 +46,15 @@ public class Bulldozer {
 
     public boolean getPenaltyFlag() { return treePenalty; }
 
-    protected Bulldozer turnLeft() {
+    public Bulldozer turnLeft() {
         return updateDirection(facing.turnLeft());
     }
 
-    protected Bulldozer turnRight() {
+    public Bulldozer turnRight() {
         return updateDirection(facing.turnRight());
     }
 
-    protected Bulldozer moveForward() {
+    public Bulldozer moveForward() {
         switch (facing) {
             case East:
                 return updatePlace(x + 1, y);
@@ -78,11 +78,11 @@ public class Bulldozer {
 
     }
 
-    protected Bulldozer updateUsage(int moreFuel, int moreDamage) {
+    public Bulldozer updateUsage(int moreFuel, int moreDamage) {
         return new Bulldozer(x, y, facing, fuelUnit + moreFuel, damageNum + moreDamage, treePenalty);
     }
 
-    protected Bulldozer flagPenalty() {
+    public Bulldozer flagPenalty() {
         return new Bulldozer(x, y, facing, fuelUnit, damageNum, true);
 
     }

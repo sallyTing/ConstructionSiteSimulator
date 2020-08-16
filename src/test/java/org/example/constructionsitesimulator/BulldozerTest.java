@@ -1,5 +1,7 @@
 package org.example.constructionsitesimulator;
 
+import org.example.constructionsitesimulator.models.Bulldozer;
+import org.example.constructionsitesimulator.models.Direction;
 import org.junit.Test;
 import static org.fest.assertions.Assertions.assertThat;
 

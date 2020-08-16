@@ -1,4 +1,6 @@
-package org.example.constructionsitesimulator;
+package org.example.constructionsitesimulator.exceptions;
+
+import org.example.constructionsitesimulator.models.ConstructionSite;
 
 public class OutOfMapException extends Exception {
     private final ConstructionSite site;

@@ -1,5 +1,16 @@
 package org.example.constructionsitesimulator;
 
+import org.example.constructionsitesimulator.commands.QuitCommand;
+import org.example.constructionsitesimulator.commands.UserCommand;
+import org.example.constructionsitesimulator.costs.CostSummary;
+import org.example.constructionsitesimulator.exceptions.OutOfMapException;
+import org.example.constructionsitesimulator.exceptions.ProtectedTreePenaltyException;
+import org.example.constructionsitesimulator.exceptions.TerminateException;
+import org.example.constructionsitesimulator.models.Bulldozer;
+import org.example.constructionsitesimulator.models.ConstructionSite;
+import org.example.constructionsitesimulator.models.Simulator;
+import org.example.constructionsitesimulator.models.SquareBlock;
+
 import java.io.FileNotFoundException;
 import java.util.*;
 
@@ -23,7 +34,7 @@ public class Main {
         try {
             constructionMap = SimulatorHelper.readMap(fileContent);
         } catch (IllegalArgumentException e) {
-            System.out.println("Oops, some invalid charactor found in construction map.");
+            System.out.println(String.format("Oops, something wrong found in construction map: %s", e.getMessage()));
             System.exit(3);
         }
 
@@ -66,7 +77,8 @@ public class Main {
 
     private static void endSimulation(Simulator simulator) {
         simulator.printCommands();
-        simulator.printCost();
+        CostSummary costSummary = new CostSummary(simulator);
+        costSummary.printCostSummary();
 
         System.out.println("Thankyou for using the Aconex site clearing simulator.");
     }
