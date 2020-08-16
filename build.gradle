@@ -11,4 +11,5 @@ repositories {
 
 dependencies {
     testImplementation group: 'junit', name: 'junit', version: '4.13'
+    testImplementation group: 'org.easytesting', name: 'fest-assert', version: '1.4'
 }
